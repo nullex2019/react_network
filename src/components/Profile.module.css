@@ -1,0 +1,14 @@
+.content {
+    grid-area: c;
+    background-color: darkkhaki;
+    padding: 10px;
+}
+
+.posts {
+    color: brown;
+    font-size: 18px;
+}
+.post {
+    color:darkslategrey;
+
+}
