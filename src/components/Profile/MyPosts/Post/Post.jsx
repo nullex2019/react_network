@@ -10,7 +10,7 @@ const Post = (props) => {
                     alt=""/>
                 {props.massage}
                 <div>
-                    <span>like {props.likecounts}</span>
+                    <span>like</span> {props.likesCount}
                 </div>
             </div>
         </div>)
