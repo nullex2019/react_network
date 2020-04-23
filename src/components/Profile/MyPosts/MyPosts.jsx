@@ -11,11 +11,10 @@ const MyPosts = () => {
                 <div></div>
                 <button>Add post</button>
             </div>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
+            <Post massage='Hello' likecounts='15'/>
+            <Post massage='Hi my friends' likecounts='19'/>
+            <Post massage='YoYoYo' likecounts='25'/>
+
 
         </div>)
 
