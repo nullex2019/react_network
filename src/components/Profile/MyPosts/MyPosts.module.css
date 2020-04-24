@@ -1,4 +1,8 @@
 .posts {
     color: brown;
     font-size: 18px;
+    margin-top: 10px;
+}
+.postsBlock {
+    padding: 20px;
 }
