@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
+const SEND_MESSAGE = "SEND_MESSAGE";
 
 
 let store = {
@@ -29,7 +31,8 @@ let store = {
                 {id: 3, name: 'Sasha'},
                 {id: 4, name: 'Victor'},
                 {id: 5, name: 'Valera'},
-            ]
+            ],
+            newMessageText: ''
         },
         sidebar: {
             friends: [
@@ -87,23 +90,29 @@ let store = {
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = '';/*Зануление*/
             this._callSubscriber(this._state);
-        } else {
-
-            if (action.type === UPDATE_NEW_POST_TEXT){
-                        this._state.profilePage.newPostText = action.newText;
-                        this._callSubscriber(this._state);
-                    }
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        } else if ( action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.messagesPage.newMessageText = action.newText;
+            this._callSubscriber(this._state);
+        } else if (action.type === SEND_MESSAGE) {
+            let body = this._state.messagesPage.newMessageText;
+            this._state.messagesPage.newMessageText='';
+            this._state .messagesPage.messagesData.push({id: 6, message: body})
+            this._callSubscriber(this._state);
         }
-
     }
-
 }
-export const addPostActionCreator = () => ({type: ADD_POST})
 
+
+export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
 
-
+export const sendMessageCreator = () => ({type: SEND_MESSAGE})
+export const updateNewMessageBodyCreator = (text) =>
+    ({type: UPDATE_NEW_MESSAGE_BODY, newText: text})
 
 
 export default store
