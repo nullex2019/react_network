@@ -13,8 +13,7 @@ export let renderEntireTree = (state) => {
         <React.StrictMode>
             <BrowserRouter>
                 <App state={state}
-                     addPost={store.addPost.bind(store)}
-                     updateNewPostText={store.updateNewPostText.bind(store)} />
+                     dispatch={store.dispatch.bind(store)}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root'));
@@ -22,6 +21,11 @@ export let renderEntireTree = (state) => {
 renderEntireTree(store.getState());
 
 store.subscribe(renderEntireTree);
+
+
+
+
+
 
 
 serviceWorker.unregister();
