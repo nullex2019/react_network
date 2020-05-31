@@ -24,7 +24,7 @@ const profileReducer = (state = initialState, action) => {
                 likesCount: Math.floor(Math.random() * 100)
             }
             return  {...state,
-                posts: [...state.posts,newPost],
+                posts: [...state.posts,newPost],//добавляем в массив newPost
                 newPostText:''
             }
         }
