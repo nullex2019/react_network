@@ -1,8 +1,8 @@
 import React from "react";
 import s from './Users.module.css'
 import * as axios from "axios";
-import userPhoto from '../../assets/images/user.png'
-
+import userPhoto from '../../assets/images/user.png';
+/*import Pagination from '@material-ui/lab/Pagination';*/
 /*let Users = (props) => {
     let getUsers = () => {
         if (props.users.length === 0
@@ -48,6 +48,7 @@ import userPhoto from '../../assets/images/user.png'
 
 }*/
 
+
 class Users extends React.Component {
 
     componentDidMount() {
@@ -65,6 +66,7 @@ class Users extends React.Component {
                 this.props.setUsers(response.data.items)
             })
     }
+
     render() {
 
         let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);//округляем
@@ -74,9 +76,10 @@ class Users extends React.Component {
         }
 
 
+
+
         return (<div className={s.container}>
                 <div>
-
                     {pages.map(p => {return <span
                         className={this.props.currentPage === p && s.selectedPage}
                         onClick={(event) => {this.onPageChanged(p)}}>
@@ -84,6 +87,12 @@ class Users extends React.Component {
                         </span>
                     })}
                 </div>
+
+
+               {/* <Pagination count={pagesCount} shape="rounded" onClick={() => {this.onPageChanged()}} />*/}
+
+
+
                 {this.props.users.map(u => <div key={u.id}>
             <span>
                 <div>
@@ -93,11 +102,9 @@ class Users extends React.Component {
                 <div>
                     {u.followed
                         ? <button className={s.c_button} onClick={() => {
-                            this.props.unfollow(u.id)
-                        }}>Follow</button>
+                            this.props.unfollow(u.id)}}>Follow</button>
                         : <button className={s.c_button} onClick={() => {
-                            this.props.follow(u.id)
-                        }}>Unfollow</button>}
+                            this.props.follow(u.id)}}>Unfollow</button>}
                 </div>
             </span>
                     <span>

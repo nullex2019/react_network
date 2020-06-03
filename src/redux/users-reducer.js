@@ -9,7 +9,7 @@ let initialState = {
     users: [],
     pageSize: 100,
     totalUsersCount:0,
-    currentPage:1 //текущая страница сервака
+    currentPage:1, //текущая страница сервака
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -51,7 +51,7 @@ const usersReducer = (state = initialState, action) => {
 
 export const followAC = (userId) => ({type: FOLLOW, userId})
 export const unfollowAC = (userId) => ({type: UNFOLLOW, userId})
-export const setUsersAC = (users) => ({type: SET_USERS, users}) //Берем юзеров из сервака
+export const setUsersAC = (users) => ({type: SET_USERS, users}) //Берем юзеров из сервака и перезатираем старый стейт с юзерами
 export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}) //Берем юзеров из сервака
 export const setTotalUserCountAC = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount}) //Установить общее количество пользователей
 
