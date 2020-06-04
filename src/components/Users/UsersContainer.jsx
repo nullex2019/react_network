@@ -10,7 +10,6 @@ import {
 } from "../../redux/users-reducer";
 import * as axios from "axios";
 import Users from "./Users";
-import preloader from "../../assets/images/preloader.svg";
 import Preloader from "../common/Preloader/Preloader";
 
 class UsersContainer extends React.Component {
@@ -23,7 +22,6 @@ class UsersContainer extends React.Component {
                 this.props.setTotalUserCount(response.data.totalCount);
             })
     }
-
 //обработчик при нажатии (метод)
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
