@@ -2,7 +2,20 @@
     grid-area: h;
     background-color: bisque;
     padding: 1px;
+    display: flex;
+    justify-content: space-between;
 }
 .header img {
     width: 60px;
+}
+.loginBlock {
+    padding-right: 10px;
+    align-self: center;
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing:3px;
+}
+.loginBlock  a {
+    text-decoration: none;
+    color: black;
 }
