@@ -1,3 +1,5 @@
+import {userAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -71,6 +73,48 @@ export const setUsers = (users) => ({type: SET_USERS, users}) //Берем юз�
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}) //Берем юзеров из сервака
 export const setTotalUserCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount}) //Установить общее количество пользователей
 export const toogleIsFetching = (isFetching) => ({type: TOOGLE_IS_FETCHING, isFetching}) //preloader true or false
-export const toogleFollowingProgress = (isFetching, userId) => ({type: TOOGLE_IS_FOLLOWING_PROGRESS, isFetching,userId}) //preloader true or false
+export const toogleFollowingProgress = (isFetching, userId) => ({
+    type: TOOGLE_IS_FOLLOWING_PROGRESS,
+    isFetching,
+    userId
+})
+
+/////////////////thunk ////////////////
+
+export const getUserThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(toogleIsFetching(true));
+        userAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toogleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUserCount(data.totalCount));
+        })
+    }
+}
+export const followThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toogleFollowingProgress(true,userId))
+        userAPI.follow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(follow(userId))
+                }
+                dispatch(toogleFollowingProgress(false, userId))
+            })
+    }
+}
+export const unfollowThunkCreator = (userId) => {
+    return (dispatch) => {
+        dispatch(toogleFollowingProgress(true,userId))
+        userAPI.unfollow(userId)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollow(userId))
+                }
+                dispatch(toogleFollowingProgress(false, userId))
+            })
+    }
+}
+
 
 export default usersReducer;

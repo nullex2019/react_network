@@ -1,38 +1,22 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, followThunkCreator,
+    getUserThunkCreator,
     setCurrentPage,
-    setTotalUserCount,
-    setUsers, toogleFollowingProgress,
-    toogleIsFetching,
-    unfollow
+    toogleFollowingProgress,
+    unfollow, unfollowThunkCreator
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {userAPI} from "../../api/api";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.toogleIsFetching(true)
-        /*axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-        withCredentials:true
-    })*/
-        userAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data => {
-                this.props.toogleIsFetching(false)
-                this.props.setUsers(data.items);
-                this.props.setTotalUserCount(data.totalCount);
-            })
+        this.props.getUserThunkCreator(this.props.currentPage,this.props.pageSize)
     }
 //обработчик при нажатии (метод)
     onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toogleIsFetching(true)
-
-        userAPI.getUsers(pageNumber,this.props.pageSize).then(data => {
-                this.props.toogleIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUserThunkCreator(pageNumber,this.props.pageSize)
     }
 
     render() {
@@ -42,11 +26,10 @@ class UsersContainer extends React.Component {
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}
                    users={this.props.users}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
                    onPageChanged={this.onPageChanged}
                    followingInProgress={this.props.followingInProgress}
-                   toogleFollowingProgress={this.props.toogleFollowingProgress}
+                   followThunkCreator={this.props.followThunkCreator}
+                   unfollowThunkCreator={this.props.unfollowThunkCreator}
             />
         </>
     }
@@ -90,10 +73,10 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUserCount,
-    toogleIsFetching,
-    toogleFollowingProgress
+    toogleFollowingProgress,
+    getUserThunkCreator,
+    followThunkCreator,
+    unfollowThunkCreator
 })(UsersContainer)
 

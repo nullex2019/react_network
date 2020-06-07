@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
+import {userAPI} from "../../api/api";
 
 let Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);//округляем
@@ -35,39 +36,12 @@ let Users = (props) => {
                 <div>
                     {u.followed
                         ? <button disabled={props.followingInProgress.some(id=>id===u.id)} className={s.c_button} onClick={() => {
-                            props.toogleFollowingProgress(true, u.id)
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{
-                                withCredentials:true,//для получения данных с сервака
-                                headers: {
-                                    "API-KEY": "225c838c-fc40-4ad6-a1f3-3843b2819080"
-                                }
-                            })
-                                .then(response => {
-                                    if (response.data.resultCode===0) {
-                                        props.unfollow(u.id)
-                                    }
-                                    props.toogleFollowingProgress(false, u.id)
-                                })
+                            props.unfollowThunkCreator(u.id)
 
                         }}>Unfollow</button>
 
                         : <button disabled={props.followingInProgress.some(id=>id===u.id)} className={s.c_button} onClick={() => {
-                            props.toogleFollowingProgress(true, u.id)
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},{
-                                withCredentials:true,
-                                headers: {
-                                    "API-KEY": "225c838c-fc40-4ad6-a1f3-3843b2819080"
-                                }
-                            })
-                                .then(response => {
-                                   if (response.data.resultCode===0) {
-                                       props.follow(u.id)
-                                   }
-                                    props.toogleFollowingProgress(false, u.id)
-                                })
-
-
-
+                            props.followThunkCreator(u.id)
                         }}>Follow</button>}
                 </div>
             </span>
