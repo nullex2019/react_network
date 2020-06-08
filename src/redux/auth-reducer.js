@@ -10,6 +10,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth:false //не залогинен
+
 }
 
 
