@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import Preloader from "../../../common/Preloader/Preloader";
+import ProfileStatus from "./ProfileStatus";
 
 
 const ProfileInfo = (props) => {
@@ -12,6 +13,9 @@ const ProfileInfo = (props) => {
         <div className={s.descriptionBlock}>
             <div>Name user: {props.profile.fullName}</div>
             <img src={props.profile.photos.large} />
+
+            <ProfileStatus status={'hello hello hello'}/>
+
             <div> {props.profile.aboutMe}</div>
             <div>{props.profile.contacts.facebook}</div>
             <div>{props.profile.contacts.vk}</div>
